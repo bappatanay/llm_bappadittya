@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Analysis</title>
+</head>
+<body>
+    <h1>Stock Analysis Tool</h1>
+    <input type="text" id="stockName" placeholder="Enter stock name">
+    <button onclick="getAnalysis()">Analyze</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function getAnalysis() {
+            const stockName = document.getElementById("stockName").value;
+            const response = await fetch("/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ stock_name: stockName })
+            });
+            const data = await response.json();
+            document.getElementById("result").textContent = data.analysis;
+        }
+    </script>
+</body>
+</html>
